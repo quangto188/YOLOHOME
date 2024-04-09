@@ -78,7 +78,7 @@
 
     <com.github.angads25.toggle.widget.LabeledSwitch
         android:layout_weight="20"
-        android:id="@+id/btnPUMP"
+        android:id="@+id/btnSENSOR"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -90,7 +90,22 @@
         app:colorBorder="@color/colorAccent"
         />
 
+    <com.github.angads25.toggle.widget.LabeledSwitch
+        android:layout_weight="0"
+        android:id="@+id/btnPUMP"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="30dp"
+        app:on="false"
+        app:colorBorder="@color/colorAccent"
+        />
+
     <TextView
+        android:id="@+id/tv_Door"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
@@ -102,4 +117,3 @@
     </TextView>
 
 </LinearLayout>
-

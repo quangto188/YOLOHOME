@@ -21,15 +21,18 @@ public class MainActivity extends AppCompatActivity {
 
     MQTTHelper mqttHelper;
     TextView txtTemp, txtHumi;
-    LabeledSwitch  btnLED, btnPUMP;
+    TextView txtDoor;
+    LabeledSwitch  btnLED, btnPUMP, btnSENSOR;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         txtTemp = findViewById(R.id.txtTemperature);
         txtHumi = findViewById(R.id.txtHumidity);
+        txtDoor = findViewById(R.id.tv_Door);
         btnLED = findViewById(R.id.btnLED);
         btnPUMP = findViewById(R.id.btnPUMP);
+        btnSENSOR =findViewById(R.id.btnSENSOR);
         btnLED.setOnToggledListener(new OnToggledListener() {
             @Override
             public void onSwitched(ToggleableView toggleableView, boolean isOn) {
@@ -40,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        btnSENSOR.setOnToggledListener(new OnToggledListener() {
+            @Override
+            public void onSwitched(ToggleableView toggleableView, boolean isOn) {
+                if (isOn == true){
+                    sendDataMQTT("todiuquang123/feeds/nutnhan3","1");
+                }else {
+                    sendDataMQTT("todiuquang123/feeds/nutnhan3","0");
+                }
+            }
+        });
+
         btnPUMP.setOnToggledListener(new OnToggledListener() {
             @Override
             public void onSwitched(ToggleableView toggleableView, boolean isOn) {
@@ -97,8 +111,16 @@ public class MainActivity extends AppCompatActivity {
                 } else if (topic.contains("nutnhan2")){
                     if (message.toString().equals("1")){
                         btnPUMP.setOn(true);
+                        txtDoor.setText("Cửa đang mở");
                     }else{
                         btnPUMP.setOn(false);
+                        txtDoor.setText("Cửa đang đóng");
+                    }
+                } else if (topic.contains("nutnhan3")){
+                    if (message.toString().equals("1")){
+                        btnSENSOR.setOn(true);
+                    }else{
+                        btnSENSOR.setOn(false);
                     }
                 }
             }
